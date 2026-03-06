@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    // Python Development
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+
+    // Linting & Formatting
+    "charliermarsh.ruff",
+
+    // Type Checking
+    "ms-python.mypy-type-checker",
+  ]
+}

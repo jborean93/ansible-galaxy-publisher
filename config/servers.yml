@@ -1,0 +1,44 @@
+# Example configuration for Ansible Galaxy Publisher proxy
+
+settings:
+  audience: galaxy.oidc.publisher
+
+oidc_issuers:
+  github:
+    issuer_url: https://token.actions.githubusercontent.com
+    jwks_url: https://token.actions.githubusercontent.com/.well-known/jwks
+
+servers:
+  galaxy:
+    base_url: https://galaxy.ansible.com
+    token: GALAXY_TOKEN
+
+  automation_hub:
+    base_url: https://console.redhat.com/api/automation-hub
+    oauth_secret:
+      client_id: AH_CLIENT_ID
+      client_secret: AH_CLIENT_SECRET
+      auth_url: https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+
+authorization_rules:
+  # Allow myorg/collection-repo to publish to galaxy only if the ref is a tag starting with v
+  - oidc_issuer: github
+    claims:
+      repository: "myorg/collection-repo"
+      ref: "refs/tags/v*"
+    servers:
+      - galaxy
+    allowed_collections:
+      - "myorg.mycollection"
+
+  # Allow specific repo to publish to both servers
+  - oidc_issuer: github
+    claims:
+      repository: "myorg/ansible-collections"
+      ref: "refs/heads/main"
+    servers:
+      - galaxy
+      - automation_hub
+    allowed_collections:
+      - "myorg.collection1"
+      - "myorg.collection2"

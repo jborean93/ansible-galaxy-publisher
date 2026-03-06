@@ -1,0 +1,16 @@
+namespace: testnamespace
+name: testcollection
+version: 1.0.0
+readme: README.md
+authors:
+  - Test Author <test@example.com>
+description: Test collection for integration testing
+license:
+  - MIT
+tags:
+  - test
+  - integration
+repository: https://github.com/test/test
+documentation: https://github.com/test/test
+homepage: https://github.com/test/test
+issues: https://github.com/test/test/issues
