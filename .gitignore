@@ -57,6 +57,12 @@ tests/manual/temp_*
 .env
 .env.local
 
+# Configuration
+config/servers.yml
+
+# Deployment
+deploy/requirements.txt
+
 # OS
 .DS_Store
 Thumbs.db

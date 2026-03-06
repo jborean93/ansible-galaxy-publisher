@@ -1,0 +1,51 @@
+# Git
+.git/
+.gitignore
+.github/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.venv/
+venv/
+ENV/
+env/
+
+# Testing
+tests/
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Documentation
+docs/
+README.md
+*.md
+
+# Deployment
+deploy/
+.deploy/
+
+# CI
+.github/
+
+# Temporary files
+*.log
+*.tmp

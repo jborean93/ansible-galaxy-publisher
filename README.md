@@ -52,7 +52,13 @@ pip install -e .
 
 ## Configuration
 
-Create a `config/servers.yml` file:
+Copy the example configuration and customize it:
+
+```bash
+cp config/servers.example.yml config/servers.yml
+```
+
+Edit `config/servers.yml` to configure your servers and authorization rules:
 
 ```yaml
 settings:
@@ -235,6 +241,40 @@ uv run ruff check . && \
 uv run mypy . && \
 uv run pytest --cov=galaxy_publisher --cov-report=term
 ```
+
+## Deployment
+
+### AWS App Runner
+
+Deploy to AWS App Runner with a single command:
+
+```bash
+# Install deployment dependencies
+uv sync --group deploy
+
+# Deploy (interactive mode)
+uv run ./deploy/deploy-apprunner.py --service-name my-galaxy-proxy
+```
+
+**What it does**:
+- ✅ Builds container image (podman/docker)
+- ✅ Tests container locally before deployment
+- ✅ Pushes to AWS ECR
+- ✅ Manages secrets in AWS Secrets Manager
+- ✅ Deploys to App Runner
+- ✅ Configures HTTPS automatically
+- ✅ Sets up health checks and auto-scaling
+
+**Result**: Production-ready HTTPS endpoint at `https://*.awsapprunner.com`
+
+**Full documentation**: See [deploy/README.md](deploy/README.md)
+
+**Prerequisites**:
+- AWS account with configured credentials
+- Podman or Docker installed
+- Python 3.12+ with boto3, pyyaml
+
+**Cost**: ~$30-60/month for low-traffic deployment
 
 ## License
 
