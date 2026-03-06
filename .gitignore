@@ -46,7 +46,6 @@ htmlcov/
 *~
 
 # Test fixtures
-tests/fixtures/keys/
 tests/fixtures/*.tar.gz
 
 # Manual test environment temporary files

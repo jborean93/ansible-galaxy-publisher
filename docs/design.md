@@ -2640,8 +2640,7 @@ open htmlcov/index.html
 **Add to `.gitignore`:**
 ```
 # Test artifacts
-tests/fixtures/keys/
-*.tar.gz
+tests/fixtures/*.tar.gz
 htmlcov/
 .coverage
 .pytest_cache/

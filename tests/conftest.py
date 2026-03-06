@@ -98,19 +98,21 @@ def _wait_for_server_port(process: subprocess.Popen[bytes], timeout: float = 3.0
 
 
 @pytest.fixture(scope="session")
-def jwt_helper() -> t.Iterator[JWTTestHelper]:
+def jwt_helper(tmp_path_factory: pytest.TempPathFactory) -> t.Iterator[JWTTestHelper]:
     """Create JWT test helper for the session.
+
+    Args:
+        tmp_path_factory: Pytest temporary path factory
 
     Yields:
         JWTTestHelper instance
     """
-    # Use a shared key file so mock server can use same keys
-    key_file = pathlib.Path(__file__).parent / "fixtures" / "keys" / "test_rsa_key.pem"
+    # Use a temporary key file so mock server can use same keys
+    tmp_dir = tmp_path_factory.mktemp("jwt_keys")
+    key_file = tmp_dir / "test_rsa_key.pem"
     helper = JWTTestHelper(key_file=str(key_file))
     yield helper
-    # Cleanup key file
-    if key_file.exists():
-        key_file.unlink()
+    # Cleanup happens automatically with tmp_path_factory
 
 
 @pytest.fixture(scope="session")
@@ -127,6 +129,10 @@ def mock_galaxy_server(
     """
     # Prepare environment for coverage in subprocess
     env = os.environ.copy()
+
+    # Get the key file path from jwt_helper
+    if jwt_helper.key_file:
+        env["MOCK_GALAXY_KEY_FILE"] = jwt_helper.key_file
 
     # Enable coverage in subprocess
     project_root = pathlib.Path(__file__).parent.parent

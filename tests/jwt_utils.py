@@ -22,6 +22,7 @@ class JWTTestHelper:
             key_file: Optional path to load/save keys. If file exists, loads from it.
                       If file doesn't exist, generates new keys and saves them.
         """
+        self.key_file = key_file
         if key_file and pathlib.Path(key_file).exists():
             self.private_key, self.public_key = self._load_keypair(key_file)
         else:
